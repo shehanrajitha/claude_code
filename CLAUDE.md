@@ -2,6 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Memory
+
+Project memory is stored in `memory/`. At the start of each session:
+1. Read `memory/MEMORY.md` for the index of all memory entries.
+2. Read any relevant memory files before starting work.
+
+When the user provides new feedback or preferences, save them as a new file in `memory/` and add a pointer to `memory/MEMORY.md`. Use the same frontmatter format:
+
+```markdown
+---
+name: <name>
+description: <one-line description>
+type: <user | feedback | project | reference>
+---
+```
+
 ## Commands
 
 ```bash
