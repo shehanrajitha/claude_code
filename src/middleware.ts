@@ -6,16 +6,19 @@ export async function middleware(request: NextRequest) {
   const session = await verifySession(request);
 
   // Protected routes that require authentication
-  const protectedPaths = ["/api/projects", "/api/filesystem"];
+  const protectedPaths = ["/api/projects", "/api/filesystem", "/dashboard"];
   const isProtectedPath = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );
 
   if (isProtectedPath && !session) {
-    return NextResponse.json(
-      { error: "Authentication required" },
-      { status: 401 }
-    );
+    if (request.nextUrl.pathname.startsWith("/api/")) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();

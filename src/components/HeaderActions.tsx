@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Plus, LogOut, FolderOpen, ChevronDown } from "lucide-react";
+import { Plus, LogOut, FolderOpen, ChevronDown, LayoutDashboard } from "lucide-react";
 import { AuthDialog } from "@/components/auth/AuthDialog";
 import { signOut } from "@/actions";
 import { getProjects } from "@/actions/get-projects";
@@ -158,6 +159,13 @@ export function HeaderActions({ user, projectId }: HeaderActionsProps) {
       <Button className="flex items-center gap-2 h-8" onClick={handleNewDesign}>
         <Plus className="h-4 w-4" />
         New Design
+      </Button>
+
+      <Button variant="outline" className="h-8 gap-2" asChild>
+        <Link href="/dashboard">
+          <LayoutDashboard className="h-4 w-4" />
+          Dashboard
+        </Link>
       </Button>
 
       <Button

@@ -62,16 +62,32 @@ export async function POST(req: Request) {
             responseMessages,
           });
 
-          await prisma.project.update({
-            where: {
-              id: projectId,
-              userId: session.userId,
-            },
-            data: {
-              messages: JSON.stringify(allMessages),
-              data: JSON.stringify(fileSystem.serialize()),
-            },
-          });
+          const serializedData = JSON.stringify(fileSystem.serialize());
+
+          try {
+            const { countComponents } = await import("@/lib/project-stats");
+            const componentCount = countComponents(
+              JSON.parse(serializedData) as Record<string, unknown>
+            );
+            await prisma.project.update({
+              where: { id: projectId, userId: session.userId },
+              data: {
+                messages: JSON.stringify(allMessages),
+                data: serializedData,
+                componentCount,
+                lastActiveAt: new Date(),
+              },
+            });
+          } catch (e) {
+            console.error("Failed to update componentCount:", e);
+            await prisma.project.update({
+              where: { id: projectId, userId: session.userId },
+              data: {
+                messages: JSON.stringify(allMessages),
+                data: serializedData,
+              },
+            });
+          }
         } catch (error) {
           console.error("Failed to save project data:", error);
         }

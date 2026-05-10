@@ -13,9 +13,10 @@ export async function getProjects() {
   const projects = await prisma.project.findMany({
     where: {
       userId: session.userId,
+      deletedAt: null,
     },
     orderBy: {
-      updatedAt: "desc",
+      lastActiveAt: "desc",
     },
     select: {
       id: true,
