@@ -1,0 +1,6 @@
+{
+  "apiKeyHelper": "powershell -Command \"(Get-Content .env | Where-Object {$_ -match '^ANTHROPIC_API_KEY='}) -replace 'ANTHROPIC_API_KEY=',''\"",
+  "enabledPlugins": {
+    "microsoft-docs@claude-plugins-official": true
+  }
+}
