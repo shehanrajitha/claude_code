@@ -37,9 +37,9 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
 
           custom_instructions: |
-            The Project is already set up with all dep[endencis installed.
-            The server is already running at localhost:3000. Logs from it are begin written to logs.txt. If you need , you can query the 
-            db with the 'sqllite3' cli. If needed, use the mcp_playwright
+            The Project is already set up with all dependencies installed.
+            The server is already running at localhost:3000. Logs from it are being written to logs.txt. If you need , you can query the
+            db with the 'sqlite3' cli. If needed, use the mcp_playwright
             set of tools to launch a browser and interact with the UI. 
 
           mcp_config: |
@@ -49,14 +49,14 @@ jobs:
                   "command": "npx",
                   "args": [
                     "@playwright/mcp@latest",
-                    "--allowed-orgins",
+                    "--allowed-origins",
                     "localhost:3000;cdn.tailwindcss.com;esm.sh"
                   ]
                   }
                 }
             }
 
-          allowed_tools: "Bash(npm:*), Bash(sqllite3:*), mcp_playwright__browser_snapshot, mcp_playwright__browser_click, mcp_playwright__browser_fill, mcp_playwright__browser_launch)"   
+          allowed_tools: "Bash(npm:*), Bash(sqlite3:*), mcp_playwright__browser_snapshot, mcp_playwright__browser_click, mcp_playwright__browser_fill, mcp_playwright__browser_launch"
 
 
 
